@@ -26,8 +26,9 @@ def process_bills():
     results["supporters"] = results["id"].map(bill_votes.get(1, 0))
     results["opposers"] = results["id"].map(bill_votes.get(2, 0))
 
-    results = results.merge(legislators_df, left_on="sponsor_id", right_on="id")
+    results = results.merge(legislators_df, left_on="sponsor_id", right_on="id", how="left")
 
+    results["name"] = results["name"].fillna("Not registered")
     response = results[["id_x", "title", "supporters", "opposers", "name"]].to_dict(orient="records")
 
     return response
