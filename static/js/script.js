@@ -12,5 +12,24 @@ function filterTable(inputId, tableId, columnIndex) {
     });
 }
 
+function showTab(tabName, btn) {
+    const tabs = document.querySelectorAll('.tab-content');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    const activeTab = document.getElementById(tabName);
+    activeTab.classList.add('active');
+
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => {
+        button.classList.remove('active');
+        button.disabled = false; 
+    });
+
+    btn.classList.add('active');
+    btn.disabled = true;
+}
+
+
 filterTable("search-legislators", "#legislators-table", 2);
 filterTable("search-bills", "#bills-table", 2);
