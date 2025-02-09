@@ -22,10 +22,44 @@
     <div id="overview" class="tab-content active">
         <div class="card">
             <div class="header">
-                <h4>Overview Works!</h4>
+                <h4>Overview</h4>
+            </div>
+            <div class="content">
+                <div class="left">
+                    <div class="last-voted-bills">
+                        <h5>Last Voted Bills</h5>
+                        <div class="bill-status">
+                            {% for bill in bills[:3] %}
+                            <div class="bill">
+                                <p><strong>{{ bill.title }}</strong></p>
+                                <p>Status: 
+                                    <span class="{{ 'approved' if bill.supporters > bill.opposers else 'rejected' }}">
+                                        {{ 'Approved' if bill.supporters > bill.opposers else 'Rejected' }}
+                                    </span>
+                                </p>
+                                <div class="progress-bar">
+                                    <div class="progress supporters" style="width: {{ (bill.supporters / (bill.supporters + bill.opposers) * 100) | round(0) }}%"></div>
+                                    <div class="progress opposers" style="width: {{ (bill.opposers / (bill.supporters + bill.opposers) * 100) | round(0) }}%"></div>
+                                </div>
+                                <p class="votes">
+                                    Supporters: {{ bill.supporters }} | Opposers: {{ bill.opposers }}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="stat-card">
+                        <p><strong>Total of Bills:</strong> {{ bills | length }}</p>
+                    </div>
+                    <div class="stat-card">
+                        <p><strong>Total of Legislators:</strong> {{ legislators | length }}</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div>    
 
     <div id="bills" class="tab-content">
         <div class="card">
