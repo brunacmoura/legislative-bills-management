@@ -79,9 +79,11 @@
                 </thead>
                 <tbody>
                     {% for bill in bills %}
-                    <tr>
-                        <td>{{ bill.id_x }}</td>
+                    <tr class="bill-row" onclick="showOverview('{{ bill.title }}', {{ bill.supporters }}, {{ bill.opposers }}, '{{ bill.name }}')">
                         <td>{{ bill.title }}</td>
+                        <td class="{{ 'approved' if bill.supporters > bill.opposers else 'rejected' }}">
+                            {{ 'Approved' if bill.supporters > bill.opposers else 'Rejected' }}
+                        </td>
                         <td>{{ bill.supporters }}</td>
                         <td>{{ bill.opposers }}</td>
                         <td>{{ bill.name }}</td>
@@ -89,6 +91,19 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <div id="bill-overview" class="overview-container" style="display: none;">
+                <h3 id="overview-title"></h3>
+                <p>Primary Sponsor: <span id="overview-sponsor-name""></span></p>
+                <p>Status: <span id="overview-status"></span></p>
+                <div class="progress-bar">
+                    <div class="progress supporters" id="supporters-bar"></div>
+                    <div class="progress opposers" id="opposers-bar"></div>
+                </div>
+                <p class="votes" style="justify-self: flex-end;">
+                    Supporters: <span id="overview-supporters"></span> | Opposers: <span id="overview-opposers"></span>
+                </p>
+            </div>
         </div>
     </div>
 

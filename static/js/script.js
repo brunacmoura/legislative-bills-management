@@ -30,6 +30,27 @@ function showTab(tabName, btn) {
     btn.disabled = true;
 }
 
+function showOverview(title, supporters, opposers, sponsor_name) {
+    let status = "Approved"
+    if (supporters > opposers){
+        status = "Rejected" 
+    }
+    document.getElementById("overview-title").innerText = title;
+    document.getElementById("overview-status").innerText = status;
+    document.getElementById("overview-supporters").innerText = supporters;
+    document.getElementById("overview-opposers").innerText = opposers;
+    document.getElementById("overview-sponsor-name").innerText = sponsor_name;
+
+    let totalVotes = supporters + opposers;
+    let supportersWidth = (supporters / totalVotes) * 100;
+    let opposersWidth = (opposers / totalVotes) * 100;
+
+    document.getElementById("supporters-bar").style.width = supportersWidth + "%";
+    document.getElementById("opposers-bar").style.width = opposersWidth + "%";
+
+    document.getElementById("bill-overview").style.display = "block";
+}
+
 
 filterTable("search-legislators", "#legislators-table", 2);
 filterTable("search-bills", "#bills-table", 2);
