@@ -30,20 +30,24 @@ function showTab(tabName, btn) {
     btn.disabled = true;
 }
 
-function showOverview(title, supporters, opposers, sponsor_name) {
+function showOverview(bill) {
     let status = "Approved"
-    if (supporters > opposers){
+    if (bill.supporters > bill.opposers){
         status = "Rejected" 
     }
-    document.getElementById("overview-title").innerText = title;
+    console.log(bill)
+    document.getElementById("overview-title").innerText = bill.title;
     document.getElementById("overview-status").innerText = status;
-    document.getElementById("overview-supporters").innerText = supporters;
-    document.getElementById("overview-opposers").innerText = opposers;
-    document.getElementById("overview-sponsor-name").innerText = sponsor_name;
+    document.getElementById("overview-supporters").innerText = bill.supporters;
+    document.getElementById("overview-opposers").innerText = bill.opposers;
+    document.getElementById("overview-sponsor-name").innerText = bill.name;
+    
+    updateList("overview-supporter-names", bill.supporter_names, "No supporters");
+    updateList("overview-opposer-names", bill.opposer_names, "No opposers");
 
-    let totalVotes = supporters + opposers;
-    let supportersWidth = (supporters / totalVotes) * 100;
-    let opposersWidth = (opposers / totalVotes) * 100;
+    let totalVotes = bill.supporters + bill.opposers;
+    let supportersWidth = (bill.supporters / totalVotes) * 100;
+    let opposersWidth = (bill.opposers / totalVotes) * 100;
 
     document.getElementById("supporters-bar").style.width = supportersWidth + "%";
     document.getElementById("opposers-bar").style.width = opposersWidth + "%";
@@ -51,6 +55,23 @@ function showOverview(title, supporters, opposers, sponsor_name) {
     document.getElementById("bill-overview").style.display = "block";
 }
 
+function updateList(elementId, names, emptyMessage) {
+    const listElement = document.getElementById(elementId);
+    listElement.innerHTML = "";
+
+    if (names.length > 0) {
+        names.forEach(name => {
+            const listItem = document.createElement("li");
+            listItem.textContent = name;
+            listElement.appendChild(listItem);
+        });
+    } else {
+        const listItem = document.createElement("li");
+        listItem.textContent = emptyMessage;
+        listItem.style.fontStyle = "italic";
+        listElement.appendChild(listItem);
+    }
+}
 
 filterTable("search-legislators", "#legislators-table", 2);
 filterTable("search-bills", "#bills-table", 2);

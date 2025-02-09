@@ -79,7 +79,7 @@
                 </thead>
                 <tbody>
                     {% for bill in bills %}
-                    <tr class="bill-row" onclick="showOverview('{{ bill.title }}', {{ bill.supporters }}, {{ bill.opposers }}, '{{ bill.name }}')">
+                    <tr class="bill-row" onclick="showOverview({{ bill }})">
                         <td>{{ bill.title }}</td>
                         <td class="{{ 'approved' if bill.supporters > bill.opposers else 'rejected' }}">
                             {{ 'Approved' if bill.supporters > bill.opposers else 'Rejected' }}
@@ -93,17 +93,33 @@
             </table>
 
             <div id="bill-overview" class="overview-container" style="display: none;">
-                <h3 id="overview-title"></h3>
-                <p>Primary Sponsor: <span id="overview-sponsor-name""></span></p>
-                <p>Status: <span id="overview-status"></span></p>
-                <div class="progress-bar">
-                    <div class="progress supporters" id="supporters-bar"></div>
-                    <div class="progress opposers" id="opposers-bar"></div>
+                <div style="width: 50%">
+                    <h3 id="overview-title"></h3>
+                    <p>Primary Sponsor: <span id="overview-sponsor-name"></span></p>
+                    <p>Status: <span id="overview-status"></span></p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress supporters" id="supporters-bar"></div>
+                        <div class="progress opposers" id="opposers-bar"></div>
+                    </div>
+                    <p class="votes" style="justify-self: flex-end;">
+                        Supporters: <span id="overview-supporters"></span> | Opposers: <span id="overview-opposers"></span>
+                    </p>
                 </div>
-                <p class="votes" style="justify-self: flex-end;">
-                    Supporters: <span id="overview-supporters"></span> | Opposers: <span id="overview-opposers"></span>
-                </p>
+            
+                <div class="vote-lists" style="width: 50%;">
+                    <div class="supporters-list">
+                        <h4>Supporters</h4>
+                        <ul id="overview-supporter-names"></ul>
+                    </div>
+            
+                    <div class="opposers-list">
+                        <h4>Opposers</h4>
+                        <ul id="overview-opposer-names"></ul>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 
