@@ -4,44 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legislative Bills Management</title>
+    
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
 </head>
 <body>
+
+<div class="container">
     <h1>Legislators' Votes</h1>
-    <table>
-        <tr>
-            <th>Legislator ID</th>
-            <th>Name</th>
-            <th>Supported Bills</th>
-            <th>Opposed Bills</th>
-        </tr>
-        {% for legislator in legislators %}
-        <tr>
-            <td>{{ legislator.id }}</td>
-            <td>{{ legislator.name }}</td>
-            <td>{{ legislator.supported_bills }}</td>
-            <td>{{ legislator.opposed_bills }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="card">
+        <table id="legislators-table">
+            <thead>
+                <tr>
+                    <th>Legislator ID</th>
+                    <th>Name</th>
+                    <th>Supported Bills</th>
+                    <th>Opposed Bills</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for legislator in legislators %}
+                <tr>
+                    <td>{{ legislator.id }}</td>
+                    <td>{{ legislator.name }}</td>
+                    <td>{{ legislator.supported_bills }}</td>
+                    <td>{{ legislator.opposed_bills }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <h1>Bills' Support</h1>
-    <table>
-        <tr>
-            <th>Bill ID</th>
-            <th>Title</th>
-            <th>Supporters</th>
-            <th>Opposers</th>
-            <th>Primary Sponsor</th>
-        </tr>
-        {% for bill in bills %}
-        <tr>
-            <td>{{ bill.id_x }}</td>
-            <td>{{ bill.title }}</td>
-            <td>{{ bill.supporters }}</td>
-            <td>{{ bill.opposers }}</td>
-            <td>{{ bill.name }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="card">
+        <table id="bills-table">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Title</th>
+                    <th>Supporters</th>
+                    <th>Opposers</th>
+                    <th>Primary Sponsor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in bills %}
+                <tr>
+                    <td>{{ bill.id_x }}</td>
+                    <td>{{ bill.title }}</td>
+                    <td>{{ bill.supporters }}</td>
+                    <td>{{ bill.opposers }}</td>
+                    <td>{{ bill.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
