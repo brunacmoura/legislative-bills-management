@@ -12,6 +12,8 @@
 <div class="container">
     <h1>Legislators' Votes</h1>
     <div class="card">
+        <input type="search" id="search-legislators" placeholder="Filter legislators by name..." />
+
         <table id="legislators-table">
             <thead>
                 <tr>
@@ -36,6 +38,8 @@
 
     <h1>Bills' Support</h1>
     <div class="card">
+        <input type="search" id="search-bills" placeholder="Filter bills by title..." />
+
         <table id="bills-table">
             <thead>
                 <tr>
@@ -60,6 +64,25 @@
         </table>
     </div>
 </div>
+
+<script>
+    function filterTable(inputId, tableId, columnIndex) {
+        const input = document.getElementById(inputId);
+        const table = document.querySelector(tableId);
+        const rows = table.querySelectorAll("tbody tr");
+
+        input.addEventListener("input", function(event) {
+            const searchTerm = event.target.value.toLowerCase();
+            rows.forEach(row => {
+                const cellText = row.querySelector(`td:nth-child(${columnIndex})`).textContent.toLowerCase();
+                row.style.display = cellText.includes(searchTerm) ? "" : "none";
+            });
+        });
+    }
+
+    filterTable("search-legislators", "#legislators-table", 2);
+    filterTable("search-bills", "#bills-table", 2);
+</script>
 
 </body>
 </html>
