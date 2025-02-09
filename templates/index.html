@@ -6,6 +6,22 @@
     <title>Legislative Bills Management</title>
 </head>
 <body>
-    Html works!
+    <h1>Legislator's Votes</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Supported Bills</th>
+            <th>Opposed Bills</th>
+        </tr>
+        {% for legislator in legislators %}
+        <tr>
+            <td>{{ legislator.id }}</td>
+            <td>{{ legislator.name }}</td>
+            <td>{{ legislator.supported_bills }}</td>
+            <td>{{ legislator.opposed_bills }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
