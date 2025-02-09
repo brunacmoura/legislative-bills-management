@@ -16,3 +16,18 @@ def process_legislators():
     response = results[["id", "name", "supported_bills", "opposed_bills"]].to_dict(orient="records")
 
     return response
+
+
+def process_bills():
+    votes_merged = vote_results_df.merge(votes_df, left_on="vote_id", right_on="id")
+    bill_votes = votes_merged.groupby("bill_id")["vote_type"].value_counts().unstack(fill_value=0)
+
+    results = bills_df.copy()
+    results["supporters"] = results["id"].map(bill_votes.get(1, 0))
+    results["opposers"] = results["id"].map(bill_votes.get(2, 0))
+
+    results = results.merge(legislators_df, left_on="sponsor_id", right_on="id")
+
+    response = results[["id_x", "title", "supporters", "opposers", "name"]].to_dict(orient="records")
+
+    return response
